@@ -11,7 +11,8 @@ public class Make : MonoBehaviour
     }
 
     // Update is called once per frame
-    public float speed = 0.5f;
+    public float speed = 1.5f;
+    public int turnSpeed = 50;
 
     void Update()
     {
@@ -37,10 +38,15 @@ public class Make : MonoBehaviour
 
         Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
 
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-        Debug.Log(movement);
-        rigidBody.velocity = movement * speed;
+        // float moveHorizontal = Input.GetAxis("Horizontal");
+        // float moveVertical = Input.GetAxis("Vertical");
+        // Vector2 movement = new Vector2(moveHorizontal, moveVertical);
+        // Debug.Log(movement);
+        rigidBody.velocity = transform.up * speed * Time.deltaTime;
+
+        if (Input.GetAxis("Horizontal") != 0)
+        {
+            transform.Rotate(new Vector3(0, 0, -turnSpeed * Time.deltaTime * Input.GetAxis("Horizontal")));
+        }
     }
 }
